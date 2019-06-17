@@ -59,6 +59,12 @@ class BookViewModel {
             return ""
         }
     }
+
+    var isOnWishList : Bool = false { 
+        didSet {
+            NotificationCenter.default.post(name: .didModifyWishList, object: nil)
+        }
+    }
     
     // MARK: Intialize - Dependency Injection
     init(book : Book) {

@@ -96,8 +96,7 @@ class DetailedBookView: UIView {
         let screenWidth = UIScreen.main.bounds.width
         scrollView.addSubview(contentView)
         contentView.anchor(top: scrollView.topAnchor, left: scrollView.leftAnchor, bottom: scrollView.bottomAnchor, right: scrollView.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: screenWidth, height: 0)
-        
-        
+                
         contentView.addSubview(coverImage)
         coverImage.anchor(top: contentView.topAnchor, left: nil, bottom: nil, right: nil, paddingTop: 48, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 200, height: 300)
         coverImage.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true

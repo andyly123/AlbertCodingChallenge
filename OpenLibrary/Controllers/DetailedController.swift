@@ -18,8 +18,11 @@ class DetailedController: UIViewController {
         super.viewDidLoad()
         
         view = detailedBookView
+        
         setupNavBar()
         setupView()
+        setupButton()
+        setupObserver()
     }
     
     // MARK: - Intializaer
@@ -30,6 +33,10 @@ class DetailedController: UIViewController {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
@@ -48,7 +55,6 @@ private extension DetailedController {
     
     func setupView() {
         
-        //detailedBookView.scrollView.delegate = self
         detailedBookView.coverImage.loadImage(urlString: viewModel.imageURL)
         detailedBookView.titleLabel.attributedText = viewModel.title
         detailedBookView.authorLabel.attributedText = viewModel.author
@@ -57,13 +63,31 @@ private extension DetailedController {
         detailedBookView.yearLabel.attributedText = viewModel.publishYear
         detailedBookView.languageLabel.attributedText = viewModel.language
     }
+    
+    func setupButton() {
+        
+        detailedBookView.wishListButton.addTarget(self, action: #selector(handlePressed), for: .touchUpInside)
+    }
+    
+    @objc func handlePressed() {
+        
+        viewModel.isOnWishList = !viewModel.isOnWishList
+    }
+    
+    func setupObserver() {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onWishListChanged), name: .didModifyWishList, object: nil)
+    }
+    
+    // Change button when user adds/remove book from wish list
+    @objc func onWishListChanged(_ notification:Notification) {
+    
+        if viewModel.isOnWishList {
+            self.detailedBookView.wishListButton.setTitle("Remove from wishlist", for: .normal)
+            self.detailedBookView.wishListButton.backgroundColor = .red
+        } else {
+            self.detailedBookView.wishListButton.setTitle("Add to wishlist", for: .normal)
+            self.detailedBookView.wishListButton.backgroundColor = .blue
+        }
+    }
 }
-
-//extension DetailedController: UIScrollViewDelegate {
-//
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        if scrollView.contentOffset.x>0 {
-//            scrollView.contentOffset.x = 0
-//        }
-//    }
-//}
