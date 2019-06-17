@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 // MARK: - Structs for JSONecoder
 struct Response: Decodable {
@@ -57,17 +58,21 @@ class APIClient:NSObject {
                     if counter > 10 {
                         break
                     }
+                    // Only retrieving books that have a title, author, and isbn
                     if let title = doc.title {
                         if let author = doc.author_name?[0] {
-                            let book = Book(title: title,
-                                            author: author,
-                                            isbn: doc.isbn?[0],
-                                            publisher: doc.publisher?[0],
-                                            publishYear: doc.first_publish_year,
-                                            language: doc.language?[0])
-                            
-                            booksArray.append(book)
-                            counter += 1
+                            if let isbn = doc.isbn?[0] {
+                                let book = Book()
+                                book.title = title
+                                book.author = author
+                                book.isbn = isbn
+                                book.publisher = doc.publisher?[0]
+                                book.publishYear = RealmOptional<Int>(doc.first_publish_year)
+                                book.language = doc.language?[0]
+                                
+                                booksArray.append(book)
+                                counter += 1
+                            }
                         }
                     }
                 }

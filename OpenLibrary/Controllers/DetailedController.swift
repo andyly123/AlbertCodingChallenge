@@ -40,6 +40,7 @@ class DetailedController: UIViewController {
     }
 }
 
+// MARK: - Helper Functions
 private extension DetailedController {
     
     func setupNavBar() {

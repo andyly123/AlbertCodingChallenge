@@ -19,11 +19,12 @@
 		0424ACD322B6C123000E8605 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0424ACD222B6C123000E8605 /* Book.swift */; };
 		0424ACD522B6D632000E8605 /* BookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0424ACD422B6D632000E8605 /* BookTableViewCell.swift */; };
 		0424ACD722B6D8C8000E8605 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0424ACD622B6D8C8000E8605 /* CustomImageView.swift */; };
-		0424ACD922B6DD42000E8605 /* BookListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0424ACD822B6DD42000E8605 /* BookListViewModel.swift */; };
+		0424ACD922B6DD42000E8605 /* SearchListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0424ACD822B6DD42000E8605 /* SearchListViewModel.swift */; };
 		0424ACDB22B6DD54000E8605 /* BookListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0424ACDA22B6DD54000E8605 /* BookListCellViewModel.swift */; };
 		0424ACDD22B6FE84000E8605 /* DetailedBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0424ACDC22B6FE84000E8605 /* DetailedBookView.swift */; };
 		0424ACDF22B7072D000E8605 /* DetailedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0424ACDE22B7072D000E8605 /* DetailedController.swift */; };
 		0424ACE122B70787000E8605 /* BookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0424ACE022B70787000E8605 /* BookViewModel.swift */; };
+		0424ACE522B74768000E8605 /* WishListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0424ACE422B74768000E8605 /* WishListViewModel.swift */; };
 		6639364985578D159F3AFA32 /* Pods_OpenLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5C2DB3147EF6801DCD216FC /* Pods_OpenLibrary.framework */; };
 /* End PBXBuildFile section */
 
@@ -42,11 +43,12 @@
 		0424ACD222B6C123000E8605 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		0424ACD422B6D632000E8605 /* BookTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTableViewCell.swift; sourceTree = "<group>"; };
 		0424ACD622B6D8C8000E8605 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
-		0424ACD822B6DD42000E8605 /* BookListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookListViewModel.swift; sourceTree = "<group>"; };
+		0424ACD822B6DD42000E8605 /* SearchListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListViewModel.swift; sourceTree = "<group>"; };
 		0424ACDA22B6DD54000E8605 /* BookListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookListCellViewModel.swift; sourceTree = "<group>"; };
 		0424ACDC22B6FE84000E8605 /* DetailedBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedBookView.swift; sourceTree = "<group>"; };
 		0424ACDE22B7072D000E8605 /* DetailedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedController.swift; sourceTree = "<group>"; };
 		0424ACE022B70787000E8605 /* BookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewModel.swift; sourceTree = "<group>"; };
+		0424ACE422B74768000E8605 /* WishListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListViewModel.swift; sourceTree = "<group>"; };
 		97C40FD75B4609E0EF9B041F /* Pods-OpenLibrary.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenLibrary.release.xcconfig"; path = "Pods/Target Support Files/Pods-OpenLibrary/Pods-OpenLibrary.release.xcconfig"; sourceTree = "<group>"; };
 		AFB496B4BA602BBF55ECACDA /* Pods-OpenLibrary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenLibrary.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OpenLibrary/Pods-OpenLibrary.debug.xcconfig"; sourceTree = "<group>"; };
 		F5C2DB3147EF6801DCD216FC /* Pods_OpenLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,7 +122,8 @@
 			isa = PBXGroup;
 			children = (
 				0424ACE022B70787000E8605 /* BookViewModel.swift */,
-				0424ACD822B6DD42000E8605 /* BookListViewModel.swift */,
+				0424ACD822B6DD42000E8605 /* SearchListViewModel.swift */,
+				0424ACE422B74768000E8605 /* WishListViewModel.swift */,
 				0424ACDA22B6DD54000E8605 /* BookListCellViewModel.swift */,
 			);
 			path = ViewModels;
@@ -183,6 +186,7 @@
 				0424ACA722B6AA91000E8605 /* Sources */,
 				0424ACA822B6AA91000E8605 /* Frameworks */,
 				0424ACA922B6AA91000E8605 /* Resources */,
+				205AB11503882DF0942AA2B3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -239,6 +243,30 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		205AB11503882DF0942AA2B3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-OpenLibrary/Pods-OpenLibrary-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OpenLibrary/Pods-OpenLibrary-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		6D5A79310C90BB8A57B9D02E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -268,6 +296,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0424ACE522B74768000E8605 /* WishListViewModel.swift in Sources */,
 				0424ACD522B6D632000E8605 /* BookTableViewCell.swift in Sources */,
 				0424ACE122B70787000E8605 /* BookViewModel.swift in Sources */,
 				0424ACD722B6D8C8000E8605 /* CustomImageView.swift in Sources */,
@@ -281,7 +310,7 @@
 				0424ACAF22B6AA91000E8605 /* AppDelegate.swift in Sources */,
 				0424ACCA22B6B11A000E8605 /* SearchController.swift in Sources */,
 				0424ACCC22B6B13E000E8605 /* WishListController.swift in Sources */,
-				0424ACD922B6DD42000E8605 /* BookListViewModel.swift in Sources */,
+				0424ACD922B6DD42000E8605 /* SearchListViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

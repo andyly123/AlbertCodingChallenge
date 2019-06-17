@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import RealmSwift
 
 class BookViewModel {
     
     // MARK: - Properties
+    private let realm = try! Realm()
+    
     private var book : Book
     
     var title: NSAttributedString {
@@ -21,11 +24,7 @@ class BookViewModel {
     }
     
     var isbn: NSAttributedString {
-        if let isbn = book.isbn {
-            return createAttributedText(label: "ISBN", bookInfo: isbn)
-        } else {
-            return createAttributedText(label: "ISBN", bookInfo: "N/A")
-        }
+        return createAttributedText(label: "ISBN", bookInfo: book.isbn)
     }
     
     var publisher: NSAttributedString {
@@ -37,7 +36,8 @@ class BookViewModel {
     }
     
     var publishYear: NSAttributedString {
-        if let year = book.publishYear {
+        
+        if let year = book.publishYear.value {
             return createAttributedText(label: "Year Published", bookInfo: String(year))
         } else {
             return createAttributedText(label: "Year Published", bookInfo: "N/A")
@@ -53,16 +53,18 @@ class BookViewModel {
     }
     
     var imageURL: String {
-        if let isbn = book.isbn {
-            return "http://covers.openlibrary.org/b/isbn/" + isbn + "-L.jpg"
-        } else {
-            return ""
-        }
+        return "http://covers.openlibrary.org/b/isbn/" + book.isbn + "-L.jpg"
     }
 
+    // When value is change send notification and update database
     var isOnWishList : Bool = false { 
         didSet {
             NotificationCenter.default.post(name: .didModifyWishList, object: nil)
+            if isOnWishList {
+                saveBook()
+            } else {
+                removeBook()
+            }
         }
     }
     
@@ -82,5 +84,21 @@ private extension BookViewModel {
         attributedText.append(NSAttributedString(string: bookInfo, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18)]))
         
         return attributedText
+    }
+    
+    func saveBook() {
+        
+        do {
+            try realm.write {
+                realm.add(book)
+            }
+        } catch {
+            print("BookViewModel - Error saving book", error)
+        }
+        
+    }
+    
+    func removeBook() {
+        
     }
 }

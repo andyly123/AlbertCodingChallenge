@@ -14,8 +14,8 @@ class SearchController: UITableViewController {
     private let cellId = "cellId"
     private var searchTimer: Timer?
     
-    private lazy var viewModel: BookListViewModel = {
-        return BookListViewModel()
+    private lazy var viewModel: SearchListViewModel = {
+        return SearchListViewModel()
     }()
     
     // MARK: - Lifecycle
