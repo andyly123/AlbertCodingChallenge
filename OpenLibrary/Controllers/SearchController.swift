@@ -81,7 +81,7 @@ extension SearchController: UISearchResultsUpdating {
         
         // retrieve the keyword from user info
         guard let keyword = timer.userInfo as? String else { return }
-        self.viewModel.searchForBook(keyword)
+        viewModel.searchForBook(keyword)
     }
 }
 

@@ -15,4 +15,5 @@ class Book: Object {
     @objc dynamic var publisher : String? = nil
     var publishYear = RealmOptional<Int>()
     @objc dynamic var language : String? = nil
+    @objc dynamic var isDeleted: Bool = false
 }

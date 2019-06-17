@@ -25,6 +25,12 @@ class DetailedController: UIViewController {
         setupObserver()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        modifyButton()
+    }
+    
     // MARK: - Intializaer
     init(book : Book) {
         self.viewModel = BookViewModel(book: book)
@@ -64,9 +70,7 @@ private extension DetailedController {
         detailedBookView.yearLabel.attributedText = viewModel.publishYear
         detailedBookView.languageLabel.attributedText = viewModel.language
         
-        if viewModel.getisOnWishList() {
-            setRemoveButton()
-        }
+        modifyButton()
     }
     
     func setupButton() {
@@ -76,7 +80,8 @@ private extension DetailedController {
     
     @objc func handlePressed() {
         
-        viewModel.modifyisOnWishList()
+        viewModel.bookWishModified()
+        modifyButton()
     }
     
     func setupObserver() {
@@ -87,6 +92,11 @@ private extension DetailedController {
     // Change button when user adds/remove book from wish list
     @objc func onWishListChanged(_ notification:Notification) {
     
+        modifyButton()
+    }
+    
+    func modifyButton() {
+     
         if viewModel.getisOnWishList() {
             setRemoveButton()
         } else {

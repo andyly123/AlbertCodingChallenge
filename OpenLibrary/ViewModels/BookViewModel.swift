@@ -6,12 +6,11 @@
 //
 
 import UIKit
-import RealmSwift
 
 class BookViewModel {
     
     // MARK: - Properties
-    private let realm = try! Realm()
+    private var wishListViewModel = WishListViewModel()
     
     private var book : Book
     
@@ -55,31 +54,24 @@ class BookViewModel {
     var imageURL: String {
         return "http://covers.openlibrary.org/b/isbn/" + book.isbn + "-L.jpg"
     }
-
-    private var isOnWishList : Bool = false
     
     // MARK: Intialize - Dependency Injection
     init(book : Book) {
         self.book = book
-        
-        let wishListViewModel = WishListViewModel()
-        isOnWishList = wishListViewModel.isBookOnWishList(book: book)
     }
 }
 
 // MARK: - public Functions
 extension BookViewModel {
     
-    // Create setters and getters because multiple ways to set isOnWishList
-    func modifyisOnWishList() {
-        
-        isOnWishList = !isOnWishList
-        isOnWishListChanged()
+    func bookWishModified() {
+
+        wishListViewModel.modifyWishList(with: self.book)
     }
     
     func getisOnWishList() -> Bool {
-        
-        return self.isOnWishList
+
+        return wishListViewModel.isBookOnWishList(book)
     }
 }
 
@@ -93,31 +85,5 @@ private extension BookViewModel {
         attributedText.append(NSAttributedString(string: bookInfo, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18)]))
         
         return attributedText
-    }
-    
-    func isOnWishListChanged() {
-        
-        NotificationCenter.default.post(name: .didModifyWishList, object: nil)
-        if isOnWishList {
-            saveBook()
-        } else {
-            removeBook()
-        }
-    }
-    
-    func saveBook() {
-        
-        do {
-            try realm.write {
-                realm.add(book)
-            }
-        } catch {
-            print("BookViewModel - Error saving book", error)
-        }
-        
-    }
-    
-    func removeBook() {
-        
     }
 }

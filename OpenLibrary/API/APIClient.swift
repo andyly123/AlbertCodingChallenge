@@ -69,7 +69,7 @@ class APIClient:NSObject {
                                 book.publisher = doc.publisher?[0]
                                 book.publishYear = RealmOptional<Int>(doc.first_publish_year)
                                 book.language = doc.language?[0]
-                                
+        
                                 booksArray.append(book)
                                 counter += 1
                             }
