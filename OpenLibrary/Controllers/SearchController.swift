@@ -14,7 +14,7 @@ class SearchController: UITableViewController {
     private let cellId = "cellId"
     private var searchTimer: Timer?
     
-    lazy var viewModel: BookListViewModel = {
+    private lazy var viewModel: BookListViewModel = {
         return BookListViewModel()
     }()
     
@@ -119,5 +119,8 @@ extension SearchController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        let book = viewModel.getBook(at: indexPath)
+        let detailedController = DetailedController(book: book)
+        self.navigationController?.pushViewController(detailedController, animated: true)
     }
 }

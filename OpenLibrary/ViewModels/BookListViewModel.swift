@@ -27,8 +27,12 @@ class BookListViewModel {
     init() {
         
     }
+}
+
+// MARK: - Public Functions
+extension BookListViewModel {
     
-    // MARK: - Public Functions
+    
     func searchForBook(_ input : String) {
         
         APIClient.shared.searchForBook(input: input) { (books) in
@@ -49,7 +53,15 @@ class BookListViewModel {
         return cellViewModels[indexPath.row]
     }
     
-    // MARK: - Helper Functions
+    func getBook(at indexPath: IndexPath) -> Book {
+        
+        return books[indexPath.row]
+    }
+}
+
+// MARK: - Helper Functions
+private extension BookListViewModel {
+    
     private func processBookResults(books : [Book]) {
     
         self.books = books

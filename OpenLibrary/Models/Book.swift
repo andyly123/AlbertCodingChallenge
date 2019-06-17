@@ -11,4 +11,7 @@ struct Book {
     let title: String
     let author: String
     let isbn : String?
+    let publisher : String?
+    let publishYear : Int?
+    let language : String?
 }
