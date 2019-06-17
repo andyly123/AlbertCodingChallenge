@@ -56,21 +56,30 @@ class BookViewModel {
         return "http://covers.openlibrary.org/b/isbn/" + book.isbn + "-L.jpg"
     }
 
-    // When value is change send notification and update database
-    var isOnWishList : Bool = false { 
-        didSet {
-            NotificationCenter.default.post(name: .didModifyWishList, object: nil)
-            if isOnWishList {
-                saveBook()
-            } else {
-                removeBook()
-            }
-        }
-    }
+    private var isOnWishList : Bool = false
     
     // MARK: Intialize - Dependency Injection
     init(book : Book) {
         self.book = book
+        
+        let wishListViewModel = WishListViewModel()
+        isOnWishList = wishListViewModel.isBookOnWishList(book: book)
+    }
+}
+
+// MARK: - public Functions
+extension BookViewModel {
+    
+    // Create setters and getters because multiple ways to set isOnWishList
+    func modifyisOnWishList() {
+        
+        isOnWishList = !isOnWishList
+        isOnWishListChanged()
+    }
+    
+    func getisOnWishList() -> Bool {
+        
+        return self.isOnWishList
     }
 }
 
@@ -84,6 +93,16 @@ private extension BookViewModel {
         attributedText.append(NSAttributedString(string: bookInfo, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18)]))
         
         return attributedText
+    }
+    
+    func isOnWishListChanged() {
+        
+        NotificationCenter.default.post(name: .didModifyWishList, object: nil)
+        if isOnWishList {
+            saveBook()
+        } else {
+            removeBook()
+        }
     }
     
     func saveBook() {

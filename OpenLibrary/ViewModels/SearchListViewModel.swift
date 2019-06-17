@@ -22,11 +22,6 @@ class SearchListViewModel {
     var numberOfCells: Int {
         return cellViewModels.count
     }
-    
-    // MARK: - Intialization
-    init() {
-        
-    }
 }
 
 // MARK: - Public Functions
@@ -77,11 +72,4 @@ private extension SearchListViewModel {
         let coverImageURL = "http://covers.openlibrary.org/b/isbn/" + book.isbn + "-S.jpg"
         return BookListCellViewModel(titleText: book.title, authorText: book.author, imageURL: coverImageURL)
     }
-    
-//    private func isBookOnWishList(book : Book) -> Bool {
-//
-//        for item in books {
-//            if let book
-//        }
-//    }
 }

@@ -59,6 +59,16 @@ extension WishListViewModel {
         
         return books[indexPath.row]
     }
+    
+    func isBookOnWishList(book : Book) -> Bool {
+        
+        for item in books {
+            if book.isbn == item.isbn {
+                return true
+            }
+        }
+        return false
+    }
 }
 
 // MARK: - Helper Functions

@@ -63,6 +63,10 @@ private extension DetailedController {
         detailedBookView.publisherLabel.attributedText = viewModel.publisher
         detailedBookView.yearLabel.attributedText = viewModel.publishYear
         detailedBookView.languageLabel.attributedText = viewModel.language
+        
+        if viewModel.getisOnWishList() {
+            setRemoveButton()
+        }
     }
     
     func setupButton() {
@@ -72,7 +76,7 @@ private extension DetailedController {
     
     @objc func handlePressed() {
         
-        viewModel.isOnWishList = !viewModel.isOnWishList
+        viewModel.modifyisOnWishList()
     }
     
     func setupObserver() {
@@ -83,12 +87,22 @@ private extension DetailedController {
     // Change button when user adds/remove book from wish list
     @objc func onWishListChanged(_ notification:Notification) {
     
-        if viewModel.isOnWishList {
-            self.detailedBookView.wishListButton.setTitle("Remove from wishlist", for: .normal)
-            self.detailedBookView.wishListButton.backgroundColor = .red
+        if viewModel.getisOnWishList() {
+            setRemoveButton()
         } else {
-            self.detailedBookView.wishListButton.setTitle("Add to wishlist", for: .normal)
-            self.detailedBookView.wishListButton.backgroundColor = .blue
+            setAddButton()
         }
+    }
+    
+    func setAddButton() {
+        
+        self.detailedBookView.wishListButton.setTitle("Add to wishlist", for: .normal)
+        self.detailedBookView.wishListButton.backgroundColor = .blue
+    }
+    
+    func setRemoveButton() {
+        
+        self.detailedBookView.wishListButton.setTitle("Remove from wishlist", for: .normal)
+        self.detailedBookView.wishListButton.backgroundColor = .red
     }
 }
