@@ -54,16 +54,26 @@ extension WishListViewModel {
         return cellViewModels[indexPath.row]
     }
     
-    func getBook(at indexPath: IndexPath) -> Book {
+    func getBook(_ isbn: String) -> Book {
         
-        return results?[indexPath.row] ?? Book()
+        if let books = results {
+            for book in books {
+                if book.isbn == isbn {
+                    return book
+                }
+            }
+            return Book()
+        } else {
+            return Book()
+        }
     }
     
-    func isBookOnWishList(_ book : Book) -> Bool {
+    // Checks if book is in database and isDelete is false
+    func isBookOnWishList(_ isbn : String) -> Bool {
         
         guard let books = results else { return false }
-        for item in books {
-            if book.isbn == item.isbn {
+        for book in books {
+            if book.isbn == isbn {
                 if !book.isDeleted {
                     return true
                 }
@@ -73,11 +83,12 @@ extension WishListViewModel {
         return false
     }
     
-    func isBookInDatabase(_ book : Book) -> Bool {
+    // Checks if the book has ever been added to the database
+    func isBookInDatabase(_ isbn : String) -> Bool {
         
         guard let books = results else { return false }
-        for item in books {
-            if book.isbn == item.isbn {
+        for book in books {
+            if book.isbn == isbn {
                 return true
             }
         }
@@ -87,7 +98,7 @@ extension WishListViewModel {
     func modifyWishList(with book : Book) {
         
         NotificationCenter.default.post(name: .didModifyWishList, object: nil)
-        if isBookOnWishList(book) {
+        if isBookOnWishList(book.isbn) {
             removeBook(book)
         } else {
             saveBook(book)
@@ -99,7 +110,7 @@ extension WishListViewModel {
         do {
             try realm.write {
                 // If book is on wish list then just change isDeleted property, else add to wishlist
-                if isBookInDatabase(book) {
+                if isBookInDatabase(book.isbn) {
                     book.isDeleted = !book.isDeleted
                 } else {
                     realm.add(book)
@@ -150,7 +161,7 @@ private extension WishListViewModel {
     private func createCellViewModel(book : Book) -> BookListCellViewModel {
         
         let coverImageURL = "http://covers.openlibrary.org/b/isbn/" + book.isbn + "-S.jpg"
-        return BookListCellViewModel(titleText: book.title, authorText: book.author, imageURL: coverImageURL)
+        return BookListCellViewModel(titleText: book.title, authorText: book.author, imageURL: coverImageURL, isbn: book.isbn)
     }
 }
 

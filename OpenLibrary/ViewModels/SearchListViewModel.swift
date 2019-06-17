@@ -10,6 +10,8 @@ import Foundation
 class SearchListViewModel {
     
     // MARK: - Properties
+    private var wishListViewModel = WishListViewModel()
+    
     private var books = [Book]()
     
     var reloadTableViewClosure: (()->())?
@@ -47,7 +49,7 @@ extension SearchListViewModel {
         return cellViewModels[indexPath.row]
     }
     
-    func getBook(at indexPath: IndexPath) -> Book {
+    func getBook(_ indexPath : IndexPath) -> Book {
         
         return books[indexPath.row]
     }
@@ -70,6 +72,6 @@ private extension SearchListViewModel {
     private func createCellViewModel(book : Book) -> BookListCellViewModel {
         
         let coverImageURL = "http://covers.openlibrary.org/b/isbn/" + book.isbn + "-S.jpg"
-        return BookListCellViewModel(titleText: book.title, authorText: book.author, imageURL: coverImageURL)
+        return BookListCellViewModel(titleText: book.title, authorText: book.author, imageURL: coverImageURL, isbn: book.isbn)
     }
 }

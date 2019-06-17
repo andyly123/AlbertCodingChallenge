@@ -11,4 +11,5 @@ struct BookListCellViewModel {
     let titleText : String
     let authorText : String
     let imageURL : String?
+    let isbn : String
 }

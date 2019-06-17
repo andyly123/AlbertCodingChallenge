@@ -93,7 +93,10 @@ extension WishListController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let book = viewModel.getBook(at: indexPath)
+        let cellVM = viewModel.getCellViewModel(at: indexPath)
+        let isbn = cellVM.isbn
+        
+        let book = viewModel.getBook(isbn)
         let detailedController = DetailedController(book: book)
         self.navigationController?.pushViewController(detailedController, animated: true)
     }

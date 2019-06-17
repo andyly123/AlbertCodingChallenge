@@ -14,8 +14,12 @@ class SearchController: UITableViewController {
     private let cellId = "cellId"
     private var searchTimer: Timer?
     
-    private lazy var viewModel: SearchListViewModel = {
+    private lazy var searchListViewModel: SearchListViewModel = {
         return SearchListViewModel()
+    }()
+    
+    private lazy var wishListViewModel: WishListViewModel = {
+        return WishListViewModel()
     }()
     
     // MARK: - Lifecycle
@@ -52,7 +56,7 @@ private extension SearchController {
     
     func setupViewModel() {
         
-        viewModel.reloadTableViewClosure = { [weak self] () in
+        searchListViewModel.reloadTableViewClosure = { [weak self] () in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
@@ -81,7 +85,7 @@ extension SearchController: UISearchResultsUpdating {
         
         // retrieve the keyword from user info
         guard let keyword = timer.userInfo as? String else { return }
-        viewModel.searchForBook(keyword)
+        searchListViewModel.searchForBook(keyword)
     }
 }
 
@@ -90,13 +94,13 @@ extension SearchController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return viewModel.numberOfCells
+        return searchListViewModel.numberOfCells
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! BookTableViewCell
-        let cellVM = viewModel.getCellViewModel(at: indexPath)
+        let cellVM = searchListViewModel.getCellViewModel(at: indexPath)
         
         cell.titleLabel.text = cellVM.titleText
         cell.authorLabel.text = cellVM.authorText
@@ -119,8 +123,18 @@ extension SearchController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let book = viewModel.getBook(at: indexPath)
-        let detailedController = DetailedController(book: book)
-        self.navigationController?.pushViewController(detailedController, animated: true)
+        // if book is already in database then return that object, else return the search result book object
+        let cellVM = searchListViewModel.getCellViewModel(at: indexPath)
+        let isbn = cellVM.isbn
+        
+        if wishListViewModel.isBookInDatabase(isbn) {
+            let book = wishListViewModel.getBook(isbn)
+            let detailedController = DetailedController(book: book)
+            self.navigationController?.pushViewController(detailedController, animated: true)
+        } else {
+            let book = searchListViewModel.getBook(indexPath)
+            let detailedController = DetailedController(book: book)
+            self.navigationController?.pushViewController(detailedController, animated: true)
+        }
     }
 }

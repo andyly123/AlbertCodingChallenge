@@ -71,7 +71,7 @@ extension BookViewModel {
     
     func getisOnWishList() -> Bool {
 
-        return wishListViewModel.isBookOnWishList(book)
+        return wishListViewModel.isBookOnWishList(book.isbn)
     }
 }
 
